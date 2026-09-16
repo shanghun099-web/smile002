@@ -763,7 +763,7 @@ const KEMO={A:'🅰',B:'🅱',C:'🅲',D:'🅳',E:'🅴',F:'🅵'};
 const KCLS={A:'a',B:'b',C:'c',D:'d',E:'e',F:'f'};
 const KCOL={A:'var(--orange2)',B:'var(--blue2)',C:'var(--green2)',D:'var(--pink2)',E:'var(--teal2)',F:'var(--amber2)'};
 const DEF_NAME={A:'오네',B:'오네 책',C:'딜리',D:'물품 D',E:'물품 E',F:'물품 F'};
-const DEF_PRICE={A:1400,B:1200,C:1200,D:1000,E:1000,F:1000};
+const DEF_PRICE={A:0,B:0,C:0,D:0,E:0,F:0};
 
 /* ── 유틸 ───────────────────────────────── */
 function today(){
@@ -3642,9 +3642,9 @@ function savePrices(){
     oo[k]=!!document.getElementById('ps-on-'+k)?.checked;
     nn[k]=safeName(document.getElementById('ps-n-'+k)?.value)||DEF_NAME[k];
     pp[k]=Number(document.getElementById('ps-p-'+k)?.value)||PRICE[k];
-    if(oo[k]&&(pp[k]<100||pp[k]>100000)) bad=true;
+    if(oo[k]&&pp[k]!==0&&(pp[k]<100||pp[k]>100000)) bad=true;
   });
-  if(bad){ showToast('⚠️ 단가는 100원 ~ 100,000원 사이여야 해요'); return; }
+  if(bad){ showToast('⚠️ 단가는 0원(미설정) 또는 100원 ~ 100,000원 사이여야 해요'); return; }
   if(!KEYS.some(k=>oo[k])){ showToast('⚠️ 최소 1개 물품은 사용으로 켜 주세요'); return; }
   KEYS.forEach(k=>{
     PRICE[k]=pp[k]; NAME[k]=nn[k]; ON[k]=oo[k];
